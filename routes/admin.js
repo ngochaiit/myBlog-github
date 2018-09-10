@@ -6,6 +6,7 @@ import User from "../models/User";
 
 /* GET users listing. */
 router.get('/',async function(req, res, next) {
+  console.log("admin")
   if(req.session.userLogin)
   {
     try{

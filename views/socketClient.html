@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script>
+          var socket = io("http://localhost:3050"); // TIP: io() with no args does auto-discovery
+                socket.on('connect', function () { 
+                    alert("sk client");
+                    // TIP: you can avoid listening on `connect` and listen on events directly too!
+                    socket.emit('ferret', 'tobi', function (data) {
+                console.log(data); // data will be 'woot'
+            });
+  });
+      </script>
+</head>
+
+  <h1>socket nme</h1>

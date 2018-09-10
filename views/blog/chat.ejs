@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel='stylesheet' href='/stylesheets/chat.css'/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+   
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5" style=" width: 100% ">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" id="accordion">
+                        <span class="glyphicon glyphicon-comment"></span> Chat
+                        <div class="btn-group pull-right">
+                            <a type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </a>
+                        </div>
+                    </div>
+                <div class="panel-collapse collapse" id="collapseOne">
+                    <div class="panel-body">
+                        <ul class="chat">
+                            <!-- <li class="left clearfix"><span class="chat-img pull-left">
+                                <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                            </span>
+                                <div class="chat-body clearfix">
+                                    <div class="header">
+                                        <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
+                                            <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
+                                    </div>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                        dolor, quis ullamcorper ligula sodales.
+                                    </p>
+                                </div>
+                            </li> -->
+                           
+                            
+                           
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="input-group">
+                            <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                            <span class="input-group-btn">
+                                <button class="btn btn-warning btn-sm" id="btn-chat">
+                                    Send</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script>
+        var socket = io("http://localhost:3050"); // TIP: io() with no args does auto-discovery
+                socket.on('connect', function () { 
+                    alert("sk client");
+                    // TIP: you can avoid listening on `connect` and listen on events directly too!
+                    socket.emit('ferret', 'tobi', function (data) {
+                console.log(data); // data will be 'woot'
+            });
+            //ask name
+                let username = prompt("what is your name?");
+                //Notify to server
+                socket.emit("adduser", username);
+  });
+
+  //listen update_message event
+  socket.on("update_message", function(data)
+{
+    $(".chat").append("<li> <b>" + data.sender +": </b>" + data.message + "</li>");
+});
+
+//send message event
+
+$('#btn-chat').click(function(e)
+{
+    let message = $('#btn-input').val();
+    $('#btn-input').val('');
+    if(message.trim().length != 0)
+    {
+        socket.emit("send_message", message);
+    }
+
+});
+
+$('#btn-input').keypress(function(e)
+{
+    if(e.keyCode == 13)
+    {
+        $('#btn-chat').trigger("click");
+    }
+})
+
+    </script>
+</body>
+</html>
