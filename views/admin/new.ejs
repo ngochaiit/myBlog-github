@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PostNew</title>
+    <%- include ../layout/head.ejs %>
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?m5ax0pcxgvw5fuqj4rixgs2atrzqzl85dxq7xo0druwcvs1w"></script>
+  <script>tinymce.init({ selector:'textarea' });</script>
+</head>
+<body>
+        <%-include ../layout/nav.ejs %>
+
+    
+        <div class="panel panel-default">
+                <div class="panel-heading">
+                   Add new Post
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <form role="form" method="POST" action="">
+                                <div class="form-group">
+                                    <label>Title</label>
+                                    <input class="form-control" name="title" placeholder="Title">
+                                    <p class="help-block">Please fill the title here.</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Author</label>
+                                    <input class="form-control" placeholder="Author" name="author">
+                                </div>
+                               
+                                <div class="form-group">
+                                    <label>File input</label>
+                                    <input type="file">
+                                </div>
+                                <div class="form-group">
+                                    <label>Content</label>
+                                    <textarea class="form-control" rows="3" name="content" placeholder="Content"></textarea>
+                                </div>
+                                
+                               
+                               
+                                <input type="submit" class="btn btn-success" value="Submit button">
+                                <button type="reset" class="btn btn-success">Reset Button</button>
+                            </form>
+                        </div>
+                        <!-- /.col-lg-6 (nested) -->
+                       
+                        <!-- /.col-lg-6 (nested) -->
+                    </div>
+                    <!-- /.row (nested) -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        
+    
+</body>
+</html>
